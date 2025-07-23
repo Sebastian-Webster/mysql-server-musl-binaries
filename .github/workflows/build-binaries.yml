@@ -1,0 +1,22 @@
+name: Build Binaries
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@4.2.2
+
+      - name: Build Docker image
+        run: docker build -t alpine .
