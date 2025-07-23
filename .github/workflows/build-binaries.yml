@@ -22,7 +22,10 @@ jobs:
         run: mkdir image-output
 
       - name: Build Docker Image
-        run: docker build -t alpine -o image-output .
+        run: docker build -t alpine-build .
+
+      - name: Mount image to file system
+        run: sudo ctr image mount alpine-build image-output
 
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
