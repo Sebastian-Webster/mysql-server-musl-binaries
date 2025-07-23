@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os-suffix: [04, 04-arm]
+        os-suffix: ['04', 04-arm]
 
     steps:
       - name: Checkout Repository
