@@ -10,6 +10,6 @@ RUN \
     mkdir bld \
     cd bld \
     && cmake .. -DBUILD_CONFIG=mysql_release -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp -DDOWNLOAD_BOOST_TIMEOUT=2000 -DWITH_ROUTER=OFF -DWITH_MYSQLX=OFF \
-    && make -j$(nproc)
-    && echo 'Complete'
+    && make -j$(nproc) \
+    && echo 'Complete' \
     && ls
