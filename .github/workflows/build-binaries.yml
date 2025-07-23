@@ -7,16 +7,27 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.${{ matrix.os-suffix }}
 
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, ubuntu-24.04-arm]
+        os-suffix: [04, 04-arm]
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@4.2.2
 
-      - name: Build Docker image
+      - name: Build Docker Image
         run: docker build -t alpine .
+
+      - name: Export Docker image
+        run: docker save alpine > image.tar
+
+      - name: Upload Docker Image export to GitHub Actions Artifacts
+        uses: actions/upload-artifact@4.6.2
+        with:
+          name: ${{ matrix.os-suffix}}-exported-image
+          path: image.tar
+          if-no-files-found: error
+          compression-level: 9
