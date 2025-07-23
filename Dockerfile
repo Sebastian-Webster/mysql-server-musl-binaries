@@ -1,4 +1,5 @@
 FROM alpine
+WORKDIR /mysql-build
 RUN apk add boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
 RUN \
     curl -fSL http://cdn.mysql.com/Downloads/MySQL-9.4/mysql-9.4.0.tar.gz -o mysql.tar.gz \

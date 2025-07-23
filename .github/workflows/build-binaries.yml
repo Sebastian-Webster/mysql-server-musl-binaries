@@ -18,18 +18,24 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@4.2.2
 
-      - run: ctr --help
+      - name: Create Docker Image Output folder
+        run: mkdir image-output
 
       - name: Build Docker Image
-        run: docker build -t alpine .
+        run: docker build -t alpine -o image-output .
 
-      - name: Export Docker image
-        run: docker save alpine > image.tar
-
-      - name: Upload Docker Image export to GitHub Actions Artifacts
+      - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os-suffix}}-exported-image
-          path: image.tar
+          name: ${{ matrix.os-suffix}}-build
+          path: image-output/build/mysql-9.4.0/bld
+          if-no-files-found: error
+          compression-level: 9
+
+      - name: Upload image output to GitHub Actions Artifacts
+        uses: actions/upload-artifact@4.6.2
+        with:
+          name: ${{ matrix.os-suffix}}-image-output
+          path: image-output
           if-no-files-found: error
           compression-level: 9
