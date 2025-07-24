@@ -5,10 +5,8 @@ ARG current_version
 
 WORKDIR /mysql-build
 RUN apk add bash boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
-RUN bash -c 'echo $( if [ $current_version == "true" ]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi )$(echo $major_minor_version)/mysql-$(echo $mysql_version).tar.gz'
-RUN \
-    curl -fSL $( if [ $current_version -eq 1 ]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi )$(echo $major_minor_version)/mysql-$(echo $mysql_version).tar.gz -o mysql.tar.gz \
-    && tar -xzf mysql.tar.gz
+RUN bash -c 'curl -fSL $( if [[ $current_version == "true" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi )$(echo $major_minor_version)/mysql-$(echo $mysql_version).tar.gz -o mysql.tar.gz'
+RUN tar -xzf mysql.tar.gz
 
 RUN \
     cd mysql-$(echo $mysql_version) \
