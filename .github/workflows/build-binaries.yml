@@ -33,8 +33,24 @@ jobs:
       - name: Export image contents
         run: docker export $(docker create alpine-build) -o image-output.tar
 
-      - name: Unzip image contents
+      - name: Upload export to GitHub Actions Artifacts
+        uses: actions/upload-artifact@4.6.2
+        with:
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output-tar
+          path: image-output.tar
+          if-no-files-found: error
+          compression-level: 9
+
+      - name: Untar image contents
         run: tar -xvf image-output.tar
+
+      - name: Upload untarred export to GitHub Actions Artifacts
+        uses: actions/upload-artifact@4.6.2
+        with:
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output
+          path: image-output
+          if-no-files-found: error
+          compression-level: 9
 
       - name: Create build output folder
         run: mkdir build-output
@@ -51,7 +67,7 @@ jobs:
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-build-output
           path: build-output
           if-no-files-found: error
           compression-level: 9
