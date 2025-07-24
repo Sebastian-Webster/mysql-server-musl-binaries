@@ -27,13 +27,19 @@ jobs:
       - name: Unzip image contents
         run: tar -xzvf image-output.tar.gz
 
-      - name: Copy license into bld folder
-        run: cp image-output/mysql-build/mysql-9.4.0/LICENSE image-output/mysql-build/mysql-9.4.0/bld
+      - name: Create build output folder
+        run: mkdir build-output
+
+      - name: Copy license and README into bld folder
+        run: cp image-output/mysql-build/mysql-9.4.0/{LICENSE,README} image-output/mysql-build/mysql-9.4.0/bld
+
+      - name: Extract important files and folders from bld folder into build output fgolder
+        run: cp -r image-output/mysql-build/mysql-9.4.0/{bin,Docs,include,lib,LICENSE,man,README,share,support-files} build-output
 
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
           name: ${{ matrix.os-suffix}}-image-output
-          path: image-output/mysql-build/mysql-9.4.0/bld
+          path: build-output
           if-no-files-found: error
           compression-level: 9
