@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@4.6.2
         with:
           name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output
-          path: image-output
+          path: mysql-build
           if-no-files-found: error
           compression-level: 9
 
@@ -56,13 +56,13 @@ jobs:
         run: mkdir build-output
 
       - name: List directory
-        run: ls image-output/mysql-build
+        run: ls mysql-build
 
       - name: Copy license and README into the mysql build folder
-        run: cp image-output/mysql-build/mysql-${{ matrix.mysql_version.version }}/{LICENSE,README} image-output/mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql
+        run: cp mysql-build/mysql-${{ matrix.mysql_version.version }}/{LICENSE,README} mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql
 
       - name: Extract important files and folders from the mysql build folder into build output folder
-        run: cp -r image-output/mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql{bin,Docs,include,lib,LICENSE,man,README,share,support-files} build-output
+        run: cp -r mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql{bin,Docs,include,lib,LICENSE,man,README,share,support-files} build-output
 
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
