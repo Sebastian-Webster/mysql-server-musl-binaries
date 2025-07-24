@@ -20,17 +20,15 @@ jobs:
         mysql_version:
           - version: 9.4.0
             line: 9.4
-            current: true
           - version: 9.3.0
             line: 9.3
-            current: false
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@4.2.2
 
       - name: Build Docker Image
-        run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }} --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg current_version=${{ matrix.mysql_version.current }} .
+        run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }} --build-arg mysql_version=${{ matrix.mysql_version.version }} .
 
       - name: Export image contents
         run: docker export $(docker create alpine-build) -o image-output.tar

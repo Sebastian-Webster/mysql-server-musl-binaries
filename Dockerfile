@@ -1,12 +1,11 @@
 FROM alpine
 ARG major_minor_version
 ARG mysql_version
-ARG current_version
 
 WORKDIR /mysql-build
 RUN apk add bash boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
 RUN bash -c 'echo URL is going to be $( if [[ $current_version == "true" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi )$(echo $major_minor_version)/mysql-$(echo $mysql_version).tar.gz'
-RUN bash -c 'curl -fSL $( if [[ $current_version == "true" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi )$(echo $major_minor_version)/mysql-$(echo $mysql_version).tar.gz -o mysql.tar.gz'
+RUN bash -c 'curl -fSL $( if [[ $mysql_version == "8.0.43" ]] || [[ $mysql_version == "8.4.6"]] || [[ $mysql_version == "9.4.0"]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi )$(echo $major_minor_version)/mysql-$(echo $mysql_version).tar.gz -o mysql.tar.gz'
 RUN tar -xzf mysql.tar.gz
 
 RUN \
