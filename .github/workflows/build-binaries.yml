@@ -26,10 +26,10 @@ jobs:
         run: docker build -t alpine-build .
 
       - name: Export image contents
-        run: docker export $(docker create alpine-build) -o image-output.tar.gz
+        run: docker export $(docker create alpine-build) -o image-output.tar
 
       - name: Unzip image contents
-        run: tar -xzvf image-output.tar.gz
+        run: tar -xvf image-output.tar
 
       - name: Create build output folder
         run: mkdir build-output
