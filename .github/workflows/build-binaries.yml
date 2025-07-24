@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@4.2.2
 
       - name: Build Docker Image
-        run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }} --build-arg mysql_version=${{ matrix.mysql_version.version }} .
+        run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }} --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.0.43" || ${{ matrix.mysql_version.version }} == "8.4.6" || ${{ matrix.mysql_version.version }} == "9.4.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)$(echo $major_minor_version)/mysql-$(echo $mysql_version).tar.gz) .
 
       - name: Export image contents
         run: docker export $(docker create alpine-build) -o image-output.tar
