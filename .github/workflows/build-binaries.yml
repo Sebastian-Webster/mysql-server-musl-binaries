@@ -62,7 +62,10 @@ jobs:
         run: cp mysql-build/mysql-${{ matrix.mysql_version.version }}/{LICENSE,README} mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql
 
       - name: Extract important files and folders from the mysql build folder into build output folder
-        run: cp -r mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql/{bin,Docs,include,lib,LICENSE,man,README,share,support-files} build-output
+        run: cp -r mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql/{Docs,include,lib,LICENSE,man,README,share,support-files} build-output
+
+      - name: Extract runtime_output_directory into build output folder
+        run: cp -r mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql/runtime_output_directory build-output/bin
 
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
