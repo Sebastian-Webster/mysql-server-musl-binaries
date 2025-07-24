@@ -39,11 +39,14 @@ jobs:
       - name: Create build output folder
         run: mkdir build-output
 
+      - name: List directory
+        run: ls image-output/mysql-build/mysql-${{ matrix.mysql_version.version }}
+
       - name: Copy license and README into the mysql build folder
-        run: cp image-output/mysql-build/mysql-9.4.0/{LICENSE,README} image-output/mysql-build/mysql-9.4.0/mysql
+        run: cp image-output/mysql-build/mysql-${{ matrix.mysql_version.version }}/{LICENSE,README} image-output/mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql
 
       - name: Extract important files and folders from the mysql build folder into build output folder
-        run: cp -r image-output/mysql-build/mysql-9.4.0/mysql{bin,Docs,include,lib,LICENSE,man,README,share,support-files} build-output
+        run: cp -r image-output/mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql{bin,Docs,include,lib,LICENSE,man,README,share,support-files} build-output
 
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
