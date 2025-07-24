@@ -7,8 +7,8 @@ RUN \
 
 RUN \
     cd mysql-9.4.0 \
-    && mkdir bld \
-    && cd bld \
+    && mkdir mysql \
+    && cd mysql \
     && cmake .. -DBUILD_CONFIG=mysql_release -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp -DDOWNLOAD_BOOST_TIMEOUT=2000 -DWITH_ROUTER=OFF -DWITH_MYSQLX=OFF \
     && make -j$(nproc) \
     && echo 'Complete' \
