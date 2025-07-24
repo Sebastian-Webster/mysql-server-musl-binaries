@@ -7,12 +7,16 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.${{ matrix.os-suffix }}
+    runs-on: ${{ matrix.os.version }}
 
     strategy:
       fail-fast: false
       matrix:
-        os-suffix: ['04', 04-arm]
+        os:
+          - version: ubuntu-24.04
+            artifact-name: ubuntu-24-04-x64
+          - version: ubuntu-24.04-arm
+            artifact-name: ubuntu-24-04-arm64
 
     steps:
       - name: Checkout Repository
@@ -39,7 +43,7 @@ jobs:
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os-suffix}}-image-output
+          name: ${{ matrix.os.artifact-name }}-image-output
           path: build-output
           if-no-files-found: error
           compression-level: 9
