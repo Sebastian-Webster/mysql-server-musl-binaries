@@ -24,10 +24,16 @@ jobs:
       - name: Export image contents
         run: docker export $(docker create alpine-build) -o image-output.tar.gz
 
-      - name: Upload image output to GitHub Actions Artifacts
+      - name: Unzip image contents
+        run: tar -xzvf image-output.tar.gz
+
+      - name: Copy license into bld folder
+        run: cp image-output/mysql-build/mysql-9.4.0/LICENSE image-output/mysql-build/mysql-9.4.0/bld
+
+      - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
           name: ${{ matrix.os-suffix}}-image-output
-          path: image-output.tar.gz
+          path: image-output/mysql-build/mysql-9.4.0/bld
           if-no-files-found: error
           compression-level: 9
