@@ -17,13 +17,20 @@ jobs:
             artifact-name: ubuntu-24-04-x64
           - version: ubuntu-24.04-arm
             artifact-name: ubuntu-24-04-arm64
+        mysql_version:
+          - version: 9.4.0
+            line: 9.4
+            current: 1
+          - version: 9.3.0
+            line: 9.3
+            current: 0
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@4.2.2
 
       - name: Build Docker Image
-        run: docker build -t alpine-build .
+        run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }},mysql_version=${{ matrix.mysql_version.version }},current_version=${{ matrix.mysql_version.current }} .
 
       - name: Export image contents
         run: docker export $(docker create alpine-build) -o image-output.tar
@@ -43,7 +50,7 @@ jobs:
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os.artifact-name }}-image-output
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output
           path: build-output
           if-no-files-found: error
           compression-level: 9
