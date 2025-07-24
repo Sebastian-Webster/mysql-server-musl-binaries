@@ -4,7 +4,7 @@ ARG mysql_version
 ARG url
 
 WORKDIR /mysql-build
-RUN apk add bash boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
+RUN apk add boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
 RUN curl -fSL $(echo $url) -o mysql.tar.gz
 RUN tar -xzf mysql.tar.gz
 
