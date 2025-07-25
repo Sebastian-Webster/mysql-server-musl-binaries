@@ -44,14 +44,6 @@ jobs:
       - name: Untar image contents
         run: tar -xvf image-output.tar
 
-      - name: Upload untarred export to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
-        with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output
-          path: mysql-build
-          if-no-files-found: error
-          compression-level: 9
-
       - name: Create build output folder
         run: mkdir build-output
 
