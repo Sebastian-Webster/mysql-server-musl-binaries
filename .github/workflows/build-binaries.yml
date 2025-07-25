@@ -43,8 +43,6 @@ jobs:
             line: 8.4
           - version: 8.4.2
             line: 8.4
-          - version: 8.4.1
-            line: 8.4
           - version: 8.4.0
             line: 8.4
           - version: 8.3.0
@@ -63,8 +61,6 @@ jobs:
             line: '8.0'
           - version: 8.0.39
             line: '8.0'
-          - version: 8.0.38
-            line: '8.0'
           - version: 8.0.37
             line: '8.0'
           - version: 8.0.36
@@ -80,8 +76,6 @@ jobs:
           - version: 8.0.31
             line: '8.0'
           - version: 8.0.30
-            line: '8.0'
-          - version: 8.0.29
             line: '8.0'
           - version: 8.0.28
             line: '8.0'
