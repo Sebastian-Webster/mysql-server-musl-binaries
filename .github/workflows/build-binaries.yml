@@ -66,3 +66,24 @@ jobs:
           path: build-output
           if-no-files-found: error
           compression-level: 9
+
+      - name: Create tar of build
+        run: tar -cvzf build-output.tar.gz build-output
+
+      - name: Upload tarred build output folder to GitHub Actions Artifacts
+        uses: actions/upload-artifact@4.6.2
+        with:
+          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-build-output-tar
+          path: build-output.tar.gz
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Upload binary to release
+        uses: svenstaro/upload-release-action@v2.11.2
+        with:
+          asset_name: mysql_musl_${{ matrix.mysql_version.version }}.tar.gz
+          overwrite: true
+          release_name: Latest Build
+          body: Latest builds of MySQL server with musl libc
+          file: build-output.tar.gz
+
