@@ -14,9 +14,9 @@ jobs:
       matrix:
         os:
           - version: ubuntu-24.04
-            artifact-name: ubuntu-24-04-x64
+            arch: x86_64
           - version: ubuntu-24.04-arm
-            artifact-name: ubuntu-24-04-arm64
+            arch: arm64
         mysql_version:
           - version: 9.4.0
             line: 9.4
@@ -42,7 +42,7 @@ jobs:
       - name: Upload export to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output-tar
+          name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-image-output-tar
           path: image-output.tar
           if-no-files-found: error
           compression-level: 9
@@ -68,7 +68,7 @@ jobs:
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-build-output
+          name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-build-output
           path: build-output
           if-no-files-found: error
           compression-level: 9
@@ -79,7 +79,7 @@ jobs:
       - name: Upload tarred build output folder to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-build-output-tar
+          name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-build-output-tar
           path: mysql-${{ matrix.mysql_version.version }}.tar.gz
           if-no-files-found: error
           compression-level: 0
@@ -88,7 +88,7 @@ jobs:
         uses: svenstaro/upload-release-action@81c65b7cd4de9b2570615ce3aad67a41de5b1a13 #v2.11.2
         with:
           repo_token: ${{ secrets.PAT }}
-          asset_name: mysql_musl_${{ matrix.mysql_version.version }}.tar.gz
+          asset_name: mysql_musl_${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz
           overwrite: true
           release_name: Latest Build
           file: mysql-${{ matrix.mysql_version.version }}.tar.gz
