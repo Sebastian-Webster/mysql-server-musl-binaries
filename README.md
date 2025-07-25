@@ -1,3 +1,24 @@
-## README in progress
+## MySQL Server musl libc binaries
 
-Building MySQL server on Alpine Linux. The build is without MySQL Router and MySQL X Plugin to prevent build issues.
+This repository has a Dockerfile and a GitHub Actions workflow file in it. The Dockerfile is used to download the MySQL Server source code and then compile it in Alpine Linux. The workflow file is to compile MySQL server and to upload the resultant binaries to this repository's release page. You can find the binareis at this repository's releases page. This repository is the source for [mysql-memory-server](https://github.com/Sebastian-Webster/mysql-memory-server-nodejs)'s MySQL Server binaries for people who run the package on Alpine Linux.
+
+## Limitations
+
+1. MySQL Router is not available in the build as there are errors when compiling with musl
+2. The MySQL X Plugin is not available in the build as there are errors when compiling with musl
+
+## Compile MySQL yourself
+
+If you are running Alpine Linux or any other musl libc based Linux distribution, execute the commands that are in the Dockerfile (replacing the environment variables with actual values instead of env variables). For everyone else, make sure you have Docker installed. Clone the repository and then in the repository's root directory run the following command:
+
+```docker build -t mysql-musl .```
+
+Depending on the speed of your hardware and how much resources you allocate to Docker, this can take from a few minutes to many hours. Once the Docker image has been built, you'd need to extract the MySQL binaries from the image. You can run the following command to do that:
+
+```docker export $(docker create mysql-musl) -o mysql-musl.tar```
+
+Untar the file however you like, but here is an example way to do that:
+
+```tar -xvf mysql-musl.tar```
+
+The output folder will be the file contents from a container created from the Docker image's contents. The mysql-build/mysql-VERSION/runtime_output_directory folder will have all the binaries produced from the calculation (replace VERSION with the MySQL version that was compiled).
