@@ -90,6 +90,5 @@ jobs:
           asset_name: mysql_musl_${{ matrix.mysql_version.version }}.tar.gz
           overwrite: true
           release_name: Latest Build
-          body: Latest builds of MySQL server with musl libc
           file: build-output.tar.gz
 
