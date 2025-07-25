@@ -22,6 +22,12 @@ jobs:
             line: 9.4
           - version: 9.3.0
             line: 9.3
+          - version: 9.2.0
+            line: 9.2
+          - version: 9.1.0
+            line: 9.1
+          - version: 9.0.1
+            line: 9.0
 
     steps:
       - name: Checkout Repository
