@@ -92,4 +92,6 @@ jobs:
           overwrite: true
           release_name: Latest Build
           file: mysql-${{ matrix.mysql_version.version }}.tar.gz
+          tag: current
+          body: Latest builds of MySQL server for musl libc.
 
