@@ -33,63 +33,66 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@4.2.2
 
-      - name: Build Docker Image
-        run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }} --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.0.43" || ${{ matrix.mysql_version.version }} == "8.4.6" || ${{ matrix.mysql_version.version }} == "9.4.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}.tar.gz) .
+      # - name: Build Docker Image
+      #   run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }} --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.0.43" || ${{ matrix.mysql_version.version }} == "8.4.6" || ${{ matrix.mysql_version.version }} == "9.4.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}.tar.gz) .
 
-      - name: Export image contents
-        run: docker export $(docker create alpine-build) -o image-output.tar
+      # - name: Export image contents
+      #   run: docker export $(docker create alpine-build) -o image-output.tar
 
-      - name: Upload export to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
-        with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output-tar
-          path: image-output.tar
-          if-no-files-found: error
-          compression-level: 9
+      # - name: Upload export to GitHub Actions Artifacts
+      #   uses: actions/upload-artifact@4.6.2
+      #   with:
+      #     name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-image-output-tar
+      #     path: image-output.tar
+      #     if-no-files-found: error
+      #     compression-level: 9
 
-      - name: Untar image contents
-        run: tar -xvf image-output.tar
+      # - name: Untar image contents
+      #   run: tar -xvf image-output.tar
 
-      - name: Create build output folder
-        run: mkdir build-output
+      # - name: Create build output folder
+      #   run: mkdir build-output
 
-      - name: List directory
-        run: ls mysql-build
+      # - name: List directory
+      #   run: ls mysql-build
 
-      - name: Copy license and README into the mysql build folder
-        run: cp mysql-build/mysql-${{ matrix.mysql_version.version }}/{LICENSE,README} mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql
+      # - name: Copy license and README into the mysql build folder
+      #   run: cp mysql-build/mysql-${{ matrix.mysql_version.version }}/{LICENSE,README} mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql
 
-      - name: Extract important files and folders from the mysql build folder into build output folder
-        run: cp -r mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql/{Docs,include,lib,LICENSE,man,README,share,support-files} build-output
+      # - name: Extract important files and folders from the mysql build folder into build output folder
+      #   run: cp -r mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql/{Docs,include,lib,LICENSE,man,README,share,support-files} build-output
 
-      - name: Extract runtime_output_directory into build output folder
-        run: cp -r mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql/runtime_output_directory build-output/bin
+      # - name: Extract runtime_output_directory into build output folder
+      #   run: cp -r mysql-build/mysql-${{ matrix.mysql_version.version }}/mysql/runtime_output_directory build-output/bin
 
-      - name: Upload build to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
-        with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-build-output
-          path: build-output
-          if-no-files-found: error
-          compression-level: 9
+      # - name: Upload build to GitHub Actions Artifacts
+      #   uses: actions/upload-artifact@4.6.2
+      #   with:
+      #     name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-build-output
+      #     path: build-output
+      #     if-no-files-found: error
+      #     compression-level: 9
 
-      - name: Create tar of build
-        run: tar -cvzf mysql-${{ matrix.mysql_version.version }}.tar.gz build-output
+      # - name: Create tar of build
+      #   run: tar -cvzf mysql-${{ matrix.mysql_version.version }}.tar.gz build-output
 
-      - name: Upload tarred build output folder to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
-        with:
-          name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-build-output-tar
-          path: mysql-${{ matrix.mysql_version.version }}.tar.gz
-          if-no-files-found: error
-          compression-level: 0
+      # - name: Upload tarred build output folder to GitHub Actions Artifacts
+      #   uses: actions/upload-artifact@4.6.2
+      #   with:
+      #     name: ${{ matrix.os.artifact-name }}-${{ matrix.mysql_version.version }}-build-output-tar
+      #     path: mysql-${{ matrix.mysql_version.version }}.tar.gz
+      #     if-no-files-found: error
+      #     compression-level: 0
+
+      - name: Create temp file
+        run: dd if=/dev/urandom of=test.file bs=5M count=1
 
       - name: Upload binary to release
         uses: svenstaro/upload-release-action@81c65b7cd4de9b2570615ce3aad67a41de5b1a13 #v2.11.2
         with:
           repo_token: ${{ secrets.PAT }}
-          asset_name: mysql_musl_${{ matrix.mysql_version.version }}.tar.gz
+          asset_name: testing.file
           overwrite: true
           release_name: Latest Build
-          file: mysql-${{ matrix.mysql_version.version }}.tar.gz
+          file: test.file
 
