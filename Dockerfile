@@ -9,8 +9,8 @@ WORKDIR /mysql-build
 RUN apk add boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
 
 RUN \
-    mkdir /usr/include/rpc \
-    && cp /usr/include/tirpc/rpc/rpc.h /usr/include/rpc \
+    mkdir /usr/include \
+    && cp -r /usr/include/tirpc/rpc /usr/include/rpc \
     && echo 'RPC folder:' \
     && ls /usr/include/rpc
 
