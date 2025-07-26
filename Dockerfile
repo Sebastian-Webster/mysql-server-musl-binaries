@@ -3,6 +3,7 @@ ARG major_minor_version
 ARG mysql_version
 ARG url
 ARG release_type
+ARG legacy
 
 WORKDIR /mysql-build
 RUN apk add boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
@@ -12,6 +13,8 @@ RUN \
     && cp /usr/include/tirpc/rpc/rpc.h /usr/include/rpc \
     && echo 'RPC folder:' \
     && ls /usr/include/rpc
+
+RUN if [ $legacy == "true" ]; then echo "compiling OpenSSL 1.1.1k" && git clone https://github.com/openssl/openssl.git && cd openssl && git checkout OpenSSL_1_1_1k && ./config && make && make install; fi
 
 RUN curl -fSL $(echo $url) -o mysql.tar.gz
 RUN tar -xzf mysql.tar.gz
