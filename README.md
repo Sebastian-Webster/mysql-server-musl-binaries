@@ -7,7 +7,7 @@ This repository has a Dockerfile and a GitHub Actions workflow file in it. The D
 1. MySQL Router is not available in the build as there are errors when compiling with musl
 2. The MySQL X Plugin is not available in the build as there are errors when compiling with musl
 3. Builds for MySQL versions 8.0.29, 8.0.38, 8.4.1, and 9.0.0 are not available as MySQL removed these versions from their CDN due to critical issues
-
+4. MySQL v5.x builds are not available due to errors when compiling with musl
 ## Compile MySQL yourself
 
 If you are running Alpine Linux or any other musl libc based Linux distribution, execute the commands that are in the Dockerfile (replacing the environment variables with actual values instead of env variables). For everyone else, make sure you have Docker installed. Clone the repository and then in the repository's root directory run the following command:
