@@ -1,6 +1,6 @@
 ## MySQL Server musl libc binaries
 
-This repository has a Dockerfile and a GitHub Actions workflow file in it. The Dockerfile is used to download the MySQL Server source code and then compile it in Alpine Linux. The workflow file is to compile MySQL server and to upload the resultant binaries to this repository's release page. You can find the binareis at this repository's releases page. This repository is the source for [mysql-memory-server](https://github.com/Sebastian-Webster/mysql-memory-server-nodejs)'s MySQL Server binaries for people who run the package on Alpine Linux.
+This repository has a Dockerfile and a GitHub Actions workflow file in it. The Dockerfile is used to download the MySQL Server source code and then compile it in Alpine Linux. The workflow file is to compile MySQL server and to upload the resultant binaries to this repository's release page. You can find the binaries at this repository's releases page. This repository is the source for [mysql-memory-server](https://github.com/Sebastian-Webster/mysql-memory-server-nodejs)'s MySQL Server binaries for people who run the package on Alpine Linux.
 
 ## Limitations
 
