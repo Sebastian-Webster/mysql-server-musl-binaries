@@ -187,8 +187,11 @@ jobs:
           if-no-files-found: error
           compression-level: 0
 
+      - name: List build output bin directory files
+        run: ls build-output/bin
+
       - name: Print version
-        run: ./build-output/bin/mysqld --version
+        run: build-output/bin/mysqld --version
 
       - name: Generate build attestation
         uses: actions/attest-build-provenance@v2
