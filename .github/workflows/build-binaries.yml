@@ -162,36 +162,34 @@ jobs:
       - name: Extract important files and folders from the mysql build folder into build output folder
         run: cp -r mysql-build/mysql-source/mysql/{Docs,include,LICENSE,man,README,share,support-files} build-output
 
-      - name: Extract runtime_output_directory into build output folder
-        run: cp -r mysql-build/mysql-source/mysql/runtime_output_directory build-output/bin
+      - name: Remove bin and lib symlinks
+        working-directory: mysql-build/mysql-source/mysql
+        run: rm -f bin lib
 
-      - name: Extract library_output_directory into build output folder
-        run: cp -r mysql-build/mysql-source/mysql/library_output_directory build-output/lib
+      - name: Extract runtime_output_directory into build folder
+        run: cp -r mysql-build/mysql-source/mysql/runtime_output_directory mysql-build/mysql-source/mysql/bin
+
+      - name: Extract library_output_directory into build folder
+        run: cp -r mysql-build/mysql-source/mysql/library_output_directory mysql-build/mysql-source/mysql/lib
 
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-build-output
-          path: build-output
+          name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-mysql-source-build
+          path: mysql-build/mysql-source
           if-no-files-found: error
           compression-level: 9
 
       - name: Create tar of build
-        run: tar -cvzf mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz build-output
+        run: tar -cvzf mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz mysql-build/mysql-source
 
       - name: Upload tarred build output folder to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
         with:
-          name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-build-output-tar
+          name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-source-build-output-tar
           path: mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz
           if-no-files-found: error
           compression-level: 0
-
-      - name: List build output bin directory files
-        run: ls build-output/bin
-
-      - name: Print version
-        run: build-output/bin/mysqld --version
 
       - name: Generate build attestation
         uses: actions/attest-build-provenance@v2
