@@ -1,8 +1,8 @@
 FROM alpine
-ARG major_minor_version
-ARG mysql_version
-ARG url
-ARG release_type
+ENV major_minor_version
+ENV mysql_version
+ENV url
+ENV release_type
 
 WORKDIR /mysql-build
 RUN apk add boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
@@ -23,3 +23,5 @@ RUN \
     && make -j$(nproc) \
     && echo 'Complete' \
     && ls
+
+CMD ['cd', 'mysql-$(echo $mysql_version)$(echo $release_type)/mysql/runtime_output_directory', '&&', 'ls', '&&', './mysqld', '--version']
