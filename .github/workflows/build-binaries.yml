@@ -18,10 +18,10 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - version: ubuntu-24.04
-            arch: x86_64
           - version: ubuntu-24.04-arm
             arch: arm64
+          - version: ubuntu-24.04
+            arch: x86_64
         mysql_version:
           - version: 9.4.0
             line: 9.4
