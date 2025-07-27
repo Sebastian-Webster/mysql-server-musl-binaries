@@ -10,7 +10,7 @@ RUN apk add boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev 
 
 RUN \
     cp -r /usr/include/tirpc/rpc /usr/include/rpc \
-    && echo 'RPC folder:' \
+    && echo "RPC folder:" \
     && ls /usr/include/rpc
 
 RUN curl -fSL $(echo $url) -o mysql.tar.gz
@@ -22,7 +22,9 @@ RUN \
     && cd mysql \
     && cmake .. -DBUILD_CONFIG=mysql_release -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp -DDOWNLOAD_BOOST_TIMEOUT=2000 -DWITH_ROUTER=OFF -DWITH_MYSQLX=OFF -DWITH_UNIT_TESTS=OFF -DWITH_BUILD_ID=OFF \
     && make -j$(nproc) \
-    && echo 'Complete' \
+    && echo "Complete" \
     && ls
 
-CMD ['cd', '$(echo $mysql_bin_folder)', '&&', 'ls', '&&', './mysqld', '--version']
+RUN mv mysql-$(echo $mysql_version)$(echo $release_type) mysql-source
+
+CMD ["./mysql-source/runtime_output_directory/mysqld", "--version"]
