@@ -16,7 +16,8 @@ RUN if [ "$legacy_openssl" == "true" ]; then echo "Downloading and building lega
 RUN if [ -n "$boost_version" ] && [ -n "$boost_version_u" ]; then echo "Downloading boost $boost_version..." && curl -O https://archives.boost.io/release/$(echo $boost_version)/source/boost_$(echo $boost_version_u).tar.gz && tar -xvf boost_$(echo $boost_version_u).tar.gz -C /tmp; else echo "Boost downloaded not specified. Skipping..."; fi
 
 RUN \
-    cp -r /usr/include/tirpc /usr/include/rpc \
+    cp -r /usr/include/tirpc/rpc /usr/include/rpc \
+    && cp /usr/include/tirpc/netconfig.h /usr/include/rpc
     && echo "RPC folder:" \
     && ls /usr/include/rpc
 
