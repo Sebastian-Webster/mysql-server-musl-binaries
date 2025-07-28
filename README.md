@@ -7,7 +7,7 @@ This repository has a Dockerfile and a GitHub Actions workflow file in it. The D
 1. MySQL Router is not available in the build as there are errors when compiling with musl
 2. The MySQL X Plugin is not available in the build as there are errors when compiling with musl
 3. Builds for MySQL versions 8.0.29, 8.0.38, 8.4.1, and 9.0.0 are not available as MySQL removed these versions from their CDN due to critical issues
-4. MySQL v5.x & v8.0.0 & v8.0.30, v8.0.32, v8.0.34 - v8.0.35, and v8.0.41 - 8.3.0 builds are not available due to errors when compiling with musl
+4. MySQL v5.x & v8.0.0 & v8.0.30, v8.0.32 - v8.0.35, and v8.0.41 - 8.3.0 builds are not available due to errors when compiling with musl
 
 ## Compile MySQL yourself
 
