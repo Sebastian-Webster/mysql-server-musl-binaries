@@ -23,41 +23,53 @@ jobs:
           - version: ubuntu-24.04
             arch: x86_64
         mysql_version:
-          - version: 9.4.0
-            line: 9.4
-          - version: 9.3.0
-            line: 9.3
-          - version: 9.2.0
-            line: 9.2
-          - version: 9.1.0
-            line: 9.1
-          - version: 9.0.1
-            line: '9.0'
-          - version: 8.4.6
-            line: 8.4
-          - version: 8.4.5
-            line: 8.4
-          - version: 8.4.4
-            line: 8.4
-          - version: 8.4.3
-            line: 8.4
-          - version: 8.4.2
-            line: 8.4
-          - version: 8.4.0
-            line: 8.4
-          - version: 8.0.40
+          # - version: 9.4.0
+          #   line: 9.4
+          # - version: 9.3.0
+          #   line: 9.3
+          # - version: 9.2.0
+          #   line: 9.2
+          # - version: 9.1.0
+          #   line: 9.1
+          # - version: 9.0.1
+          #   line: '9.0'
+          # - version: 8.4.6
+          #   line: 8.4
+          # - version: 8.4.5
+          #   line: 8.4
+          # - version: 8.4.4
+          #   line: 8.4
+          # - version: 8.4.3
+          #   line: 8.4
+          # - version: 8.4.2
+          #   line: 8.4
+          # - version: 8.4.0
+          #   line: 8.4
+          # - version: 8.0.40
+          #   line: '8.0'
+          #   boost_version: 1.77.0
+          #   boost_version_u: 1_77_0
+          # - version: 8.0.39
+          #   line: '8.0'
+          #   boost_version: 1.77.0
+          #   boost_version_u: 1_77_0
+          # - version: 8.0.37
+          #   line: '8.0'
+          #   boost_version: 1.77.0
+          #   boost_version_u: 1_77_0
+          # - version: 8.0.36
+          #   line: '8.0'
+          #   boost_version: 1.77.0
+          #   boost_version_u: 1_77_0
+          - version: 8.0.41
             line: '8.0'
             boost_version: 1.77.0
             boost_version_u: 1_77_0
-          - version: 8.0.39
+          - version: 8.0.42
             line: '8.0'
             boost_version: 1.77.0
             boost_version_u: 1_77_0
-          - version: 8.0.37
-            line: '8.0'
-            boost_version: 1.77.0
-            boost_version_u: 1_77_0
-          - version: 8.0.36
+          - version: 8.0.43
             line: '8.0'
             boost_version: 1.77.0
             boost_version_u: 1_77_0
