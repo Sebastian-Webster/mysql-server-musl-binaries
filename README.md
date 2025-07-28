@@ -18,7 +18,7 @@ MySQL 8.4.x (up to 8.4.6) and MySQL 9.x (up to 9.4.0) are provided.
 
 If you are running Alpine Linux or any other musl libc based Linux distribution, execute the commands that are in the Dockerfile (replacing the environment variables with actual values instead of env variables). For everyone else, make sure you have Docker installed. Clone the repository and then in the repository's root directory run the following command:
 
-```docker build -t mysql-musl .```
+```docker build -t mysql-musl --build-arg mysql_version=VERSION --build-arg url=URL.``` - Replace VERSION with the MySQL version (for example, for compiling MySQL v9.4.0, this would be 9.4.0). Replace URL with the MySQL CDN URL for the MySQL source code.
 
 Depending on the speed of your hardware and how much resources you allocate to Docker, this can take from a few minutes to many hours. Once the Docker image has been built, you'd need to extract the MySQL binaries from the image. You can run the following command to do that:
 
@@ -28,7 +28,7 @@ Untar the file however you like, but here is an example way to do that:
 
 ```tar -xvf mysql-musl.tar```
 
-The output folder will be the file contents from a container created from the Docker image's contents. The mysql-build/mysql-VERSION/runtime_output_directory folder will have all the binaries produced from the calculation (replace VERSION with the MySQL version that was compiled).
+The output folder will be the file contents from a container created from the Docker image's contents. The mysql-build/mysql-source/runtime_output_directory folder will have all the binaries produced from the calculation.
 
 ## Disclaimer
 
