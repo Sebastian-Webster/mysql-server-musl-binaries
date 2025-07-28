@@ -2,12 +2,17 @@
 
 This repository has a Dockerfile and a GitHub Actions workflow file in it. The Dockerfile is used to download the MySQL Server source code and then compile it in Alpine Linux. The workflow file is to compile MySQL server and to upload the resultant binaries to this repository's release page. You can find the binaries at this repository's releases page. This repository is the source for [mysql-memory-server](https://github.com/Sebastian-Webster/mysql-memory-server-nodejs)'s MySQL Server binaries for people who run the package on Alpine Linux.
 
+## MySQL Binaries provided
+
+MySQL 8.4.x (up to 8.4.6) and MySQL 9.x (up to 9.4.0) are provided.
+
 ## Limitations
 
 1. MySQL Router is not available in the build as there are errors when compiling with musl
 2. The MySQL X Plugin is not available in the build as there are errors when compiling with musl
 3. Builds for MySQL versions 8.0.29, 8.0.38, 8.4.1, and 9.0.0 are not available as MySQL removed these versions from their CDN due to critical issues
 4. MySQL v5.x & v8.0.0 - v8.0.11 - v8.0.35, and v8.0.41 - 8.3.0 builds are not available due to errors when compiling with musl
+5. MySQL versions v8.0.36, v8.0.37, v8.0.39, and v8.0.40 do successfully compile with this repository setup but binaries for those versions are not provided as the latest 8.0.x version (at the time of writing is v8.0.43) does not successfully compile and the majority of the 8.0.x line does not successfully compile so it doesn't make much sense to compile them and provide the binaries from this repository. See [the following commit](https://github.com/Sebastian-Webster/mysql-server-musl-binaries/tree/8668c0803e9dc7197bb57a5a9b6f534927508c49) for v8.0.36 - v8.0.40 support.
 
 ## Compile MySQL yourself
 
