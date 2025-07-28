@@ -8,7 +8,7 @@ ARG boost_version_u
 ENV mysql_bin_folder="/mysql-version/mysql/runtime_output_directory"
 
 WORKDIR /mysql-build
-RUN apk add boost-dev cmake curl g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
+RUN apk add boost-dev cmake curl doxygen g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
 
 RUN if [ -n "$boost_version" ] && [ -n "$boost_version_u" ]; then echo "Downloading boost $boost_version..." && curl -O https://archives.boost.io/release/$(echo $boost_version)/source/boost_$(echo $boost_version_u).tar.gz && tar -xvf boost_$(echo $boost_version_u).tar.gz -C /tmp; else echo "Boost downloaded not specified. Skipping..."; fi
 
