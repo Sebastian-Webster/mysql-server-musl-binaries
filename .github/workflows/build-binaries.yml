@@ -55,10 +55,16 @@ jobs:
             boost_version_u: 1_77_0
           - version: 8.0.43
             line: '8.0'
+            boost_version: 1.77.0
+            boost_version_u: 1_77_0
           - version: 8.0.42
             line: '8.0'
+            boost_version: 1.77.0
+            boost_version_u: 1_77_0
           - version: 8.0.41
             line: '8.0'
+            boost_version: 1.77.0
+            boost_version_u: 1_77_0
           - version: 8.0.40
             line: '8.0'
             boost_version: 1.77.0
