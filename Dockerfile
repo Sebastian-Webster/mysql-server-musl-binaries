@@ -24,7 +24,7 @@ RUN \
     cd mysql-$(echo $mysql_version)$(echo $release_type) \
     && mkdir mysql \
     && cd mysql \
-    && cmake .. -DBUILD_CONFIG=mysql_release -DWITH_BOOST=/tmp/boost_$(echo $boost_version_u) -DWITH_ROUTER=OFF -DWITH_MYSQLX=OFF -DWITH_UNIT_TESTS=OFF -DWITH_BUILD_ID=OFF \
+    && cmake .. -DBUILD_CONFIG=mysql_release -DWITH_BOOST=/tmp/boost_$(echo $boost_version_u) -DWITH_ROUTER=OFF -DWITH_MYSQLX=OFF -DWITH_UNIT_TESTS=OFF -DWITH_BUILD_ID=OFF -DWITH_CLIENT_PROTOCOL_TRACING=OFF \
     && make -j$(nproc) \
     && echo "Complete" \
     && ls
