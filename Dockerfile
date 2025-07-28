@@ -3,14 +3,10 @@ ARG major_minor_version
 ARG mysql_version
 ARG url
 ARG release_type
-ARG boost_version
-ARG boost_version_u
 ENV mysql_bin_folder="/mysql-version/mysql/runtime_output_directory"
 
 WORKDIR /mysql-build
 RUN apk add boost-dev cmake curl doxygen g++ gcc libaio libaio-dev libc-dev libedit-dev linux-headers make perl pwgen openssl openssl-dev bison libtirpc libtirpc-dev git rpcgen
-
-RUN if [ -n "$boost_version" ] && [ -n "$boost_version_u" ]; then echo "Downloading boost $boost_version..." && curl -O https://archives.boost.io/release/$(echo $boost_version)/source/boost_$(echo $boost_version_u).tar.gz && tar -xvf boost_$(echo $boost_version_u).tar.gz -C /tmp; else echo "Boost downloaded not specified. Skipping..."; fi
 
 RUN \
     cp -r /usr/include/tirpc/rpc /usr/include/rpc \
@@ -25,7 +21,7 @@ RUN \
     cd mysql-$(echo $mysql_version)$(echo $release_type) \
     && mkdir mysql \
     && cd mysql \
-    && cmake .. -DBUILD_CONFIG=mysql_release -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp/boost_$(echo $boost_version_u) -DDOWNLOAD_BOOST_TIMEOUT=2000 -DWITH_ROUTER=OFF -DWITH_MYSQLX=OFF -DWITH_UNIT_TESTS=OFF -DWITH_BUILD_ID=OFF -DWITH_CLIENT_PROTOCOL_TRACING=OFF -DWITH_RAPID=OFF \
+    && cmake .. -DBUILD_CONFIG=mysql_release -DWITH_ROUTER=OFF -DWITH_MYSQLX=OFF -DWITH_UNIT_TESTS=OFF -DWITH_BUILD_ID=OFF -DWITH_CLIENT_PROTOCOL_TRACING=OFF -DWITH_RAPID=OFF \
     && make -j$(nproc) \
     && echo "Complete" \
     && ls
