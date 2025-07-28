@@ -23,57 +23,51 @@ jobs:
           - version: ubuntu-24.04
             arch: x86_64
         mysql_version:
-          # - version: 9.4.0
-          #   line: 9.4
-          # - version: 9.3.0
-          #   line: 9.3
-          # - version: 9.2.0
-          #   line: 9.2
-          # - version: 9.1.0
-          #   line: 9.1
-          # - version: 9.0.1
-          #   line: '9.0'
-          # - version: 8.4.6
-          #   line: 8.4
-          # - version: 8.4.5
-          #   line: 8.4
-          # - version: 8.4.4
-          #   line: 8.4
-          # - version: 8.4.3
-          #   line: 8.4
-          # - version: 8.4.2
-          #   line: 8.4
-          # - version: 8.4.0
-          #   line: 8.4
-          # - version: 8.0.40
-          #   line: '8.0'
-          #   boost_version: 1.77.0
-          #   boost_version_u: 1_77_0
-          # - version: 8.0.39
-          #   line: '8.0'
-          #   boost_version: 1.77.0
-          #   boost_version_u: 1_77_0
-          # - version: 8.0.37
-          #   line: '8.0'
-          #   boost_version: 1.77.0
-          #   boost_version_u: 1_77_0
-          # - version: 8.0.36
-          #   line: '8.0'
-          #   boost_version: 1.77.0
-          #   boost_version_u: 1_77_0
-          # --- KNOWN WORKING - THESE ARE COMMENTED OUT TO SPEED UP DEVELOPMENT - WILL UNCOMMENT LATER
-          - version: 8.0.4
+          - version: 9.4.0
+            line: 9.4
+          - version: 9.3.0
+            line: 9.3
+          - version: 9.2.0
+            line: 9.2
+          - version: 9.1.0
+            line: 9.1
+          - version: 9.0.1
+            line: '9.0'
+          - version: 8.4.6
+            line: 8.4
+          - version: 8.4.5
+            line: 8.4
+          - version: 8.4.4
+            line: 8.4
+          - version: 8.4.3
+            line: 8.4
+          - version: 8.4.2
+            line: 8.4
+          - version: 8.4.0
+            line: 8.4
+          - version: 8.0.40
             line: '8.0'
-            release_type: -rc
-            boost_version: 1.65.0
-            boost_version_u: 1_65_0
+            boost_version: 1.77.0
+            boost_version_u: 1_77_0
+          - version: 8.0.39
+            line: '8.0'
+            boost_version: 1.77.0
+            boost_version_u: 1_77_0
+          - version: 8.0.37
+            line: '8.0'
+            boost_version: 1.77.0
+            boost_version_u: 1_77_0
+          - version: 8.0.36
+            line: '8.0'
+            boost_version: 1.77.0
+            boost_version_u: 1_77_0
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@4.2.2
 
       - name: Build Docker Image
-        run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }} --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.0.43" || ${{ matrix.mysql_version.version }} == "8.4.6" || ${{ matrix.mysql_version.version }} == "9.4.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}${{ matrix.mysql_version.release_type }}.tar.gz) --build-arg release_type=${{ matrix.mysql_version.release_type }} --build-arg boost_version=${{ matrix.mysql_version.boost_version }} --build-arg boost_version_u=${{ matrix.mysql_version.boost_version_u }} --build-arg legacy_openssl=${{ matrix.mysql_version.legacy_openssl }} .
+        run: docker build -t alpine-build --build-arg major_minor_version=${{ matrix.mysql_version.line }} --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.0.43" || ${{ matrix.mysql_version.version }} == "8.4.6" || ${{ matrix.mysql_version.version }} == "9.4.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}${{ matrix.mysql_version.release_type }}.tar.gz) --build-arg release_type=${{ matrix.mysql_version.release_type }} --build-arg boost_version=${{ matrix.mysql_version.boost_version }} --build-arg boost_version_u=${{ matrix.mysql_version.boost_version_u }} .
 
       - name: Export image contents
         run: docker export $(docker create alpine-build) -o image-output.tar
