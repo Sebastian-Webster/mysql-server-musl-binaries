@@ -45,8 +45,6 @@ jobs:
             line: 8.4
           - version: 8.4.0
             line: 8.4
-          - version: 8.3.0
-            line: 8.3
           - version: 8.2.0
             line: 8.2
           - version: 8.1.0
