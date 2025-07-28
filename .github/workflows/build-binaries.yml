@@ -45,23 +45,23 @@ jobs:
           #   line: 8.4
           # - version: 8.4.0
           #   line: 8.4
+          # - version: 8.0.40
+          #   line: '8.0'
+          #   boost_version: 1.77.0
+          #   boost_version_u: 1_77_0
+          # - version: 8.0.39
+          #   line: '8.0'
+          #   boost_version: 1.77.0
+          #   boost_version_u: 1_77_0
+          # - version: 8.0.37
+          #   line: '8.0'
+          #   boost_version: 1.77.0
+          #   boost_version_u: 1_77_0
+          # - version: 8.0.36
+          #   line: '8.0'
+          #   boost_version: 1.77.0
+          #   boost_version_u: 1_77_0
           # --- KNOWN WORKING - THESE ARE COMMENTED OUT TO SPEED UP DEVELOPMENT - WILL UNCOMMENT LATER
-          - version: 8.0.40
-            line: '8.0'
-            boost_version: 1.77.0
-            boost_version_u: 1_77_0
-          - version: 8.0.39
-            line: '8.0'
-            boost_version: 1.77.0
-            boost_version_u: 1_77_0
-          - version: 8.0.37
-            line: '8.0'
-            boost_version: 1.77.0
-            boost_version_u: 1_77_0
-          - version: 8.0.36
-            line: '8.0'
-            boost_version: 1.77.0
-            boost_version_u: 1_77_0
           - version: 8.0.31
             line: '8.0'
             boost_version: 1.77.0
