@@ -117,7 +117,7 @@ jobs:
           - version: 8.0.17
             line: '8.0'
             boost_version: 1.69.0
-            boost_version_u: 1_70_0
+            boost_version_u: 1_69_0
           - version: 8.0.16
             line: '8.0'
             boost_version: 1.69.0
