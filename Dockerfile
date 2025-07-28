@@ -17,7 +17,7 @@ RUN if [ -n "$boost_version" ] && [ -n "$boost_version_u" ]; then echo "Download
 
 RUN \
     cp -r /usr/include/tirpc/rpc /usr/include/rpc \
-    && cp /usr/include/tirpc/netconfig.h /usr/include/rpc
+    && cp /usr/include/tirpc/netconfig.h /usr/include/rpc \
     && echo "RPC folder:" \
     && ls /usr/include/rpc
 
