@@ -4,7 +4,7 @@ This repository has a Dockerfile and a GitHub Actions workflow file in it. The D
 
 ## MySQL Binaries provided
 
-MySQL 8.4.x (up to 8.4.6) and MySQL 9.x (up to 9.4.0) are provided.
+MySQL 8.4.x (up to 8.4.6) and MySQL 9.x (up to 9.4.0) are provided. To start the MySQL Server, you must make sure you have the ```libaio``` and ```libstdc++``` packages installed.
 
 ## Limitations
 
