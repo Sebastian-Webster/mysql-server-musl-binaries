@@ -80,7 +80,7 @@ jobs:
         run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/{Docs,include,LICENSE,man,README,share,support-files} build-output
 
       - name: Extract runtime_output_directory into build folder
-        run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/runtime_output_directory builf-output/bin
+        run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/runtime_output_directory build-output/bin
 
       - name: Extract library_output_directory into build folder
         run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/library_output_directory build-output/lib
