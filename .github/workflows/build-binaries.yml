@@ -79,15 +79,11 @@ jobs:
       - name: Extract important files and folders from the mysql build folder into build output folder
         run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/{Docs,include,LICENSE,man,README,share,support-files} build-output
 
-      - name: Remove bin and lib symlinks
-        working-directory: mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}
-        run: rm -f bin lib
-
       - name: Extract runtime_output_directory into build folder
-        run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/runtime_output_directory mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/bin
+        run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/runtime_output_directory builf-output/bin
 
       - name: Extract library_output_directory into build folder
-        run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/library_output_directory mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/lib
+        run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/library_output_directory build-output/lib
 
       - name: Upload build to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
@@ -98,7 +94,7 @@ jobs:
           compression-level: 9
 
       - name: Create tar of build
-        run: tar -cvzf mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz mysql-build/mysql-source
+        run: tar -cvzf mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz build-output
 
       - name: Upload tarred build output folder to GitHub Actions Artifacts
         uses: actions/upload-artifact@4.6.2
