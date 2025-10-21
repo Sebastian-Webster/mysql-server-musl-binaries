@@ -106,7 +106,7 @@ jobs:
           name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-source-build-output-tar
           path: mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz
           if-no-files-found: error
-          compression-level: 0
+          compression-level: 9
 
       - name: Generate build attestation
         uses: actions/attest-build-provenance@v2
