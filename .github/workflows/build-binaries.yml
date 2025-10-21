@@ -90,7 +90,7 @@ jobs:
         run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/library_output_directory mysql-${{ matrix.mysql_version.version }}/lib
 
       - name: Upload build to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-mysql-source-build
           path: mysql-build/mysql-source
@@ -101,7 +101,7 @@ jobs:
         run: tar -cvzf mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz mysql-${{ matrix.mysql_version.version }}
 
       - name: Upload tarred build output folder to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-source-build-output-tar
           path: mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz
