@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Build Docker Image
         run: docker build -t alpine-build --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.0.43" || ${{ matrix.mysql_version.version }} == "8.4.6" || ${{ matrix.mysql_version.version }} == "9.4.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}.tar.gz) .
@@ -61,7 +61,7 @@ jobs:
         run: docker export $(docker create alpine-build) -o image-output.tar
 
       - name: Upload export to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-image-output-tar
           path: image-output.tar
