@@ -23,6 +23,8 @@ jobs:
           - version: ubuntu-24.04
             arch: x86_64
         mysql_version:
+          - version: 9.5.0
+            line: 9.5
           - version: 9.4.0
             line: 9.4
           - version: 9.3.0
@@ -33,6 +35,8 @@ jobs:
             line: 9.1
           - version: 9.0.1
             line: '9.0'
+          - version: 8.4.7
+            line: 8.4
           - version: 8.4.6
             line: 8.4
           - version: 8.4.5
