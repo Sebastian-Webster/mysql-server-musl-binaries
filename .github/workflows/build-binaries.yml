@@ -23,6 +23,8 @@ jobs:
           - version: ubuntu-24.04
             arch: x86_64
         mysql_version:
+          - version: 9.5.0
+            line: 9.5
           - version: 9.4.0
             line: 9.4
           - version: 9.3.0
@@ -33,6 +35,8 @@ jobs:
             line: 9.1
           - version: 9.0.1
             line: '9.0'
+          - version: 8.4.7
+            line: 8.4
           - version: 8.4.6
             line: 8.4
           - version: 8.4.5
@@ -48,16 +52,16 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Build Docker Image
-        run: docker build -t alpine-build --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.0.43" || ${{ matrix.mysql_version.version }} == "8.4.6" || ${{ matrix.mysql_version.version }} == "9.4.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}.tar.gz) .
+        run: docker build -t alpine-build --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.4.7" || ${{ matrix.mysql_version.version }} == "9.5.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}.tar.gz) .
 
       - name: Export image contents
         run: docker export $(docker create alpine-build) -o image-output.tar
 
       - name: Upload export to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-image-output-tar
           path: image-output.tar
@@ -86,7 +90,7 @@ jobs:
         run: cp -r mysql-build/mysql-source/mysql-${{ matrix.mysql_version.version }}/library_output_directory mysql-${{ matrix.mysql_version.version }}/lib
 
       - name: Upload build to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-mysql-source-build
           path: mysql-build/mysql-source
@@ -97,12 +101,12 @@ jobs:
         run: tar -cvzf mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz mysql-${{ matrix.mysql_version.version }}
 
       - name: Upload tarred build output folder to GitHub Actions Artifacts
-        uses: actions/upload-artifact@4.6.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ matrix.os.arch }}-${{ matrix.mysql_version.version }}-source-build-output-tar
           path: mysql-musl-${{ matrix.mysql_version.version }}-${{ matrix.os.arch }}.tar.gz
           if-no-files-found: error
-          compression-level: 0
+          compression-level: 9
 
       - name: Generate build attestation
         uses: actions/attest-build-provenance@v2
