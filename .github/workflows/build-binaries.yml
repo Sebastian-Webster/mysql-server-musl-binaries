@@ -23,6 +23,8 @@ jobs:
           - version: ubuntu-24.04
             arch: x86_64
         mysql_version:
+          - version: 9.6.0
+            line: 9.6
           - version: 9.5.0
             line: 9.5
           - version: 9.4.0
@@ -35,6 +37,8 @@ jobs:
             line: 9.1
           - version: 9.0.1
             line: '9.0'
+          - version: 8.4.8
+            line: 8.4
           - version: 8.4.7
             line: 8.4
           - version: 8.4.6
@@ -55,7 +59,7 @@ jobs:
         uses: actions/checkout@v5.0.0
 
       - name: Build Docker Image
-        run: docker build -t alpine-build --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.4.7" || ${{ matrix.mysql_version.version }} == "9.5.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}.tar.gz) .
+        run: docker build -t alpine-build --build-arg mysql_version=${{ matrix.mysql_version.version }} --build-arg url=$(echo $(if [[ ${{ matrix.mysql_version.version }} == "8.4.8" || ${{ matrix.mysql_version.version }} == "9.6.0" ]]; then echo "https://cdn.mysql.com/Downloads/MySQL-"; else echo "https://cdn.mysql.com/archives/mysql-"; fi)${{ matrix.mysql_version.line }}/mysql-${{ matrix.mysql_version.version }}.tar.gz) .
 
       - name: Export image contents
         run: docker export $(docker create alpine-build) -o image-output.tar
