@@ -4,7 +4,7 @@ This repository has a Dockerfile and a GitHub Actions workflow file in it. The D
 
 ## MySQL Binaries provided
 
-MySQL 8.4.x (up to 8.4.8) and MySQL 9.x (up to 9.6.0) are provided. To start the MySQL Server, you must make sure you have the ```libaio``` and ```libstdc++``` packages installed.
+MySQL 8.4.0 - 8.4.11 and MySQL 9.0.1 - 9.6.0 are provided. To start the MySQL Server, you must make sure you have the ```libaio``` and ```libstdc++``` packages installed.
 
 ## Limitations
 
@@ -13,6 +13,7 @@ MySQL 8.4.x (up to 8.4.8) and MySQL 9.x (up to 9.6.0) are provided. To start the
 3. Builds for MySQL versions 8.0.29, 8.0.38, 8.4.1, and 9.0.0 are not available as MySQL removed these versions from their CDN due to critical issues
 4. MySQL v5.x & v8.0.0 - v8.0.11 - v8.0.35, and v8.0.41 - 8.3.0 builds are not available due to errors when compiling with musl
 5. MySQL versions v8.0.36, v8.0.37, v8.0.39, and v8.0.40 do successfully compile with this repository setup but binaries for those versions are not provided as the latest 8.0.x version (at the time of writing is v8.0.43) does not successfully compile and the majority of the 8.0.x line does not successfully compile so it doesn't make much sense to compile them and provide the binaries from this repository. See [the following commit](https://github.com/Sebastian-Webster/mysql-server-musl-binaries/tree/8668c0803e9dc7197bb57a5a9b6f534927508c49) for v8.0.36 - v8.0.40 support.
+6. MySQL 9.7.x is not available as there is an error when compiling with musl (tested with MySQL 9.7.0 - 9.7.2 inclusive) in the Group Replication Resource Manager component
 
 ## Compile MySQL yourself
 
